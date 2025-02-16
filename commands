@@ -3,3 +3,5 @@ ld test.o -o test
 
  nasm -f elf64 -o ft_strlen.o ft_strlen.s
  gcc main.c ft_strlen.o -o test
+
+ 
