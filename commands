@@ -6,6 +6,8 @@ ld test.o -o test
 
  To print all system information and check if your system specification fits, run uname -a.
 
+valgrind --leak-check=full ./program
+
  # Это правило с шаблоном (pattern rule).
 # Оно определяет, как создавать объектные файлы (.o) из соответствующих им исходных файлов на C (.c). 
 # %.o: Это цель правила (target pattern). Символ % - это подстановочный символ (wildcard), 

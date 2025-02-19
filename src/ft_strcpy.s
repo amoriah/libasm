@@ -12,6 +12,6 @@ loop:
     inc rdx
     jmp loop
 
-.finish: 
-    mov bl, 0
+.finish:
+    mov byte [rax + rdx], 0
     ret
