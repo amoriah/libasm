@@ -1,4 +1,5 @@
-global ft_strcpy
+section .text
+    global ft_strcpy
 
 ft_strcpy:
     mov rdx, 0
@@ -6,7 +7,7 @@ ft_strcpy:
 
 loop: 
     cmp byte [rsi + rdx], 0
-    je .finish
+    je  .finish
     mov bl, [rsi + rdx]
     mov [rdi + rdx], bl
     inc rdx

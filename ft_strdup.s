@@ -1,8 +1,9 @@
-global ft_strdup
+section .text
+    global ft_strdup
 
-extern ft_strlen
-extern ft_strcpy
-extern malloc
+    extern ft_strlen
+    extern ft_strcpy
+    extern malloc
 
 ft_strdup:
     mov     rbx, rdi           ; mov first arg to tmp rbx

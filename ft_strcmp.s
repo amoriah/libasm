@@ -1,4 +1,5 @@
-global ft_strcmp
+section .text
+    global  ft_strcmp
 
 ft_strcmp:
 
@@ -6,9 +7,9 @@ loop:
     mov cl, [rdi]
     mov bl, [rsi]
     cmp cl, 0
-    je .finish
+    je  .finish
     cmp bl, 0
-    je .finish
+    je  .finish
     cmp cl, bl
     jne .finish
     inc rdi
@@ -16,6 +17,6 @@ loop:
     jmp loop
 
 .finish:
-    sub cl, bl
-    movsx rax, cl
+    sub     cl, bl
+    movsx   rax, cl
     ret

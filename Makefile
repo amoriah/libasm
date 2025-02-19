@@ -1,10 +1,8 @@
 NAME	=	libasm
-LIB		=   libasm.a
+LIB		=   $(NAME).a
 SRC		=	main.c
 ASM_SRC	=	ft_strlen.s ft_strcpy.s	ft_strcmp.s ft_strdup.s ft_write.s ft_read.s
-OBJ		=	$(SRC:.c=$(OBJ_DIR)/%.o) $(ASM_SRC:$(SRC_DIR)/%.s=$(OBJ_DIR)/%.o)
-SRC_DIR	=	src
-OBJ_DIR	=	obj
+OBJ		=	$(SRC:.c=.o) $(ASM_SRC:.s=.o)
 RM		=	rm -f
 GCC		=	gcc
 ASM		= 	nasm
@@ -23,10 +21,10 @@ $(NAME)	:	$(LIB)
 $(LIB)	: 	$(OBJ)
 			ar rcs $(LIB) $(OBJ)
 
-$(OBJ_DIR)/%.o 	:	%.c
+%.o 	:	%.c
 			$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
 
-$(OBJ_DIR)/%.o 	:	$(SRC_DIR)/%.s
+%.o 	:	%.s
 			$(ASM) $(AFLAGS) -o $@ $<
 
 all		:	$(NAME) 
