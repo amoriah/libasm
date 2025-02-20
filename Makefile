@@ -29,15 +29,15 @@ $(OBJ_DIR)/%.o 	:	%.c
 $(OBJ_DIR)/%.o 	:	$(SRC_DIR)/%.s
 					$(ASM) $(AFLAGS) -o $@ $<
 
-all				:	$(NAME) 
+all				:	$(NAME)
 
-run				: 	
+run				:
 					./$(NAME)
 
 valgrind		:	all
 					$(VGD) ./$(NAME)
 
-clean			:		
+clean			:
 					$(RM) $(OBJ_DIR)
 
 fclean			:	clean
