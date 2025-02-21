@@ -1,6 +1,8 @@
-global  ft_strcmp
+section .text
+    global  ft_strcmp
 
 ft_strcmp:
+    mov rax, 0
 
 loop:
     mov cl, [rdi]
@@ -15,7 +17,19 @@ loop:
     inc rsi
     jmp loop
 
-.finish:
-    sub     cl, bl
-    movsx   rax, cl
+.ret_negative:
+    mov rax, -1
     ret
+
+.ret_positive:
+    mov rax, 1
+    ret
+
+.finish:
+    sub  cl, bl
+    jg   .ret_positive
+    jl   .ret_negative
+    ret
+
+    ; add errno
+    ;It returns NULL if insufficient memory was available, with errno set to indicate the error.

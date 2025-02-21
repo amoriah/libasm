@@ -9,6 +9,7 @@ int test_strcmp(const char *s1, const char *s2, const char *test_name) {
     printf("Second string: %s\n", s2);
     printf("Result from strcmp: %i\n", standart_result);
     printf("Result from ft_strcmp: %i\n", my_result);
+
     if (standart_result != my_result) {
       printf("ERROR: results DO NOT match!\n");
       return 1;

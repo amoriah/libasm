@@ -21,32 +21,32 @@ EOC				=	"\033[0m"
 all				:	$(NAME)
 
 $(NAME)			:	$(LIB)
-					$(GCC) $(CFLAGS) -o $(NAME) $(C_SRC) $(LIB) $(LFLAGS)
-					@echo $(GREEN)SUCCESS$(EOC)
+					@$(GCC) $(CFLAGS) -o $(NAME) $(C_SRC) $(LIB) $(LFLAGS)
+					@echo $(GREEN)Compilation finished successful$(EOC)
 
 $(LIB)			: 	$(OBJ)
-					ar rcs $(LIB) $(OBJ)
+					@ar rcs $(LIB) $(OBJ)
 
 $(OBJ_DIR)/%.o 	:	%.c $(HEADER)
-					mkdir -p $(OBJ_DIR)
-					$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
+					@mkdir -p $(OBJ_DIR)
+					@$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o 	:	$(TESTS_DIR)/%.c $(HEADER)
-					$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
+					@$(GCC) $(CFLAGS) $(LFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/%.o 	:	$(SRC_DIR)/%.s
-					$(ASM) $(AFLAGS) -o $@ $<
+					@$(ASM) $(AFLAGS) -o $@ $<
 run				:
 					./$(NAME)
 
 valgrind		:	all
-					$(VGD) ./$(NAME)
+					@$(VGD) ./$(NAME)
 
 clean			:
-					$(RM) $(OBJ_DIR)
+					@$(RM) $(OBJ_DIR)
 
 fclean			:	clean
-					$(RM) $(LIB) $(NAME)
+					@$(RM) $(LIB) $(NAME)
 
 re				:	fclean all
 
