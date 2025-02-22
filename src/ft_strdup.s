@@ -1,23 +1,28 @@
-section .text
     global ft_strdup
 
     extern ft_strlen
     extern ft_strcpy
     extern malloc
+    extern __errno_location
 
+    section .text
 ft_strdup:
-    mov     rbx, rdi           ; mov first arg to tmp rbx
-    call    ft_strlen          ; get rdi return rax
-    inc     rax                ; len + 1
-    mov     rdi, rax           ; move len into ferst arg
-    call    malloc WRT ..plt   ; search in dynamic library , get first arg return rax
-    test    rax, rax           ; check if null
-    jz      .error_handler
-    mov     rdi, rax           ; move pointer of memory to first arg
-    mov     rsi, rbx           ; move into second arg tmp rbx
-    call    ft_strcpy          ; take rdi and rsi return rax
+    mov     rbx, rdi           
+    call    ft_strlen         
+    inc     rax                
+    mov     rdi, rax           
+    call    malloc WRT ..plt   
+    cmp     rax, 0
+    jl      .error
+    mov     rdi, rax
+    mov     rsi, rbx
+    call    ft_strcpy 
     ret 
 
-.error_handler:
-    mov     rax, 0
-    ret
+.error:
+    neg rax
+    mov rdi, rax
+    call __errno_location wrt ..plt
+    mov [rax], edi
+    mov rax, -1
+    ret 

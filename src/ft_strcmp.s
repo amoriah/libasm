@@ -1,6 +1,6 @@
-section .text
     global  ft_strcmp
 
+    section .text
 ft_strcmp:
     mov rax, 0
 

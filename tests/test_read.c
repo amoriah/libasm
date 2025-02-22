@@ -1,5 +1,5 @@
 #include <tests.h>
-//check return values (0, 1, -1)
+//perror?
 int check_read_errors(int bytes_read) {
   if (bytes_read == -1) {
     perror("Error from read");
@@ -8,84 +8,106 @@ int check_read_errors(int bytes_read) {
   return 0;
 }
 
-int test_ft_read_stdin() {
+int read_from_stdin(const char *test_name) {
   ssize_t bytes_read;
-  char    buffer[100];
+  char    buffer[BUFFER_SIZE];
 
-  printf("\nTest: read from stdin\nInput something: \n");
-  bytes_read = ft_read(0, buffer, sizeof(buffer) - 1);
+  printf("\nTest: %s\nInput something: \n", test_name);
+
+  bytes_read = ft_read(STDIN_CODE, buffer, sizeof(buffer) - 1);
   if (check_read_errors(bytes_read)) return 1;
-  buffer[bytes_read] = '\0'; // Добавляем нулевой символ в конец строки
+  buffer[bytes_read] = '\0';
+
   printf("Your input: %s\n", buffer);
   return 0;
 }
 
-int test_ft_read_file_descriptor() {
+int read_from_fd(const char *test_name) {
   int     fd_ft_write;
   int     fd_write;
-  ssize_t bytes_read;
-  char    buffer[100];
+  char    buffer[BUFFER_SIZE];
+  ssize_t bytes_ft_read;
+  ssize_t bytes_read;                                                                            ;
 
-  printf("\nTest: read from file\n");
+  printf("\nTest: %s\n", test_name);
   fd_write = open("test_write.txt", O_RDONLY);
   fd_ft_write = open("test_ft_write.txt", O_RDONLY);
 
   if (check_calls(fd_write, fd_ft_write)) return 1;
 
-  bytes_read = ft_read(fd_ft_write, buffer, sizeof(buffer) - 1);
-  if (bytes_read >= 0) {
-      buffer[bytes_read] = '\0'; // Добавляем нулевой символ в конец строки
-      printf("Read from file by ft_read -> %s\n", buffer);
+  bytes_ft_read = ft_read(fd_ft_write, buffer, sizeof(buffer) - 1);
+  if (bytes_ft_read >= 0) {
+    buffer[bytes_ft_read] = '\0';
+    printf("Read from file by ft_read -> %s\n", buffer);
   } else {
-      perror("Error ft_read from file");
-      return 1;
+    perror("Error ft_read from file");
+    return 1;
   }
+
   bytes_read = read(fd_write, buffer, sizeof(buffer) - 1);
   if (bytes_read >= 0) {
-      buffer[bytes_read] = '\0'; // Добавляем нулевой символ в конец строки
-      printf("Read from file by read -> %s\n", buffer);
+    buffer[bytes_read] = '\0';
+    printf("Read from file by read -> %s\n", buffer);
   } else {
-      perror("Error read from file");
-      return 1;
+    perror("Error read from file");
+    return 1;
   }
 
   close(fd_write);
   close(fd_ft_write);
+
+  if (bytes_read != bytes_ft_read) {
+    printf("%sERROR: Lengths DO NOT match!%s\n", RED, NO_COLOR);
+    return 1;
+  }
+
+  printf("%sOK: Lengths match!%s\n", GREEN, NO_COLOR);
   return 0;
 }
 
-int test_ft_read_return_value() {
-  char buffer[100];
+int read_zero_bytes(const char *test_name) {
+  char buffer[BUFFER_SIZE];
   ssize_t bytes_read;
 
-  printf("\nTest: read 0 bytes\n");
-  bytes_read = ft_read(0, buffer, 0);
+  printf("\nTest: %s\n", test_name);
+  bytes_read = ft_read(STDIN_CODE, buffer, 0);
   if (bytes_read == 0) {
-      printf("Success: reading 0 bytes returns 0\n");
-      return 0;
+    printf("%sOK: reading 0 bytes returns 0%s\n", GREEN, NO_COLOR);
+    return 0;
   } else {
-      printf("Error: reading 0 bytes returns: %zd\n", bytes_read);
-      return 1;
+    printf("%sError: reading 0 bytes returns: %zd%s\n", RED, bytes_read, NO_COLOR);
+    return 1;
   }
 }
 
-int test_ft_read_invalid_fd() {
-  char buffer[100];
+int read_from_wrong_fd(const char *test_name) {
+  char buffer[BUFFER_SIZE];
   ssize_t bytes_read;
 
-  printf("\nTest: read from wrong fd\n");
-  bytes_read = ft_read(-1, buffer, sizeof(buffer) - 1);
+  printf("\nTest: %s\n", test_name);
+  bytes_read = ft_read(WRONG_FD, buffer, sizeof(buffer) - 1);
   if (bytes_read > 0) {
-    printf("Success reading from wrong fd. It isn't good: %zd\n", bytes_read);
+    printf("%sError: success reading from wrong fd %zd%s\n", RED, bytes_read, NO_COLOR);
     return 1;
   }
-  perror("Error reading file from wrong fd. It is good=>");
+  printf("%sOK: error reading file from wrong fd, result: %ld %s\n", GREEN, bytes_read, NO_COLOR);
   return 0;
 }
 
 int test_read() {
-  return (test_ft_read_stdin() \
-          || test_ft_read_file_descriptor() \
-          || test_ft_read_invalid_fd() \
-          || test_ft_read_return_value());
+
+  printf("\n%s          [ TEST FT_READ ]          %s\n", BLUE, NO_COLOR);
+
+  int   test1_passed = read_from_stdin("read from stdin");
+  int   test2_passed = read_from_fd("read from fd");
+  int   test3_passed = read_from_wrong_fd("send wrong fd");
+  int   test4_passed = read_zero_bytes("read zero bytes");
+
+  if (!test1_passed && !test2_passed && !test3_passed && !test4_passed) {
+    printf("\n%s          All read tests PASSED!%s\n\n", GREEN, NO_COLOR);
+    return 0;
+  } else {
+    printf( "\n%s          Some read tests FAILED!%s\n\n", RED, NO_COLOR);
+    return 1;
+  }
 }

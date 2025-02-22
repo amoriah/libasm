@@ -43,7 +43,7 @@ valgrind		:	all
 					@$(VGD) ./$(NAME)
 
 clean			:
-					@$(RM) $(OBJ_DIR)
+					@$(RM) $(OBJ_DIR) *.txt
 
 fclean			:	clean
 					@$(RM) $(LIB) $(NAME)
