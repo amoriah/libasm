@@ -30,6 +30,3 @@ loop:
     jg   .ret_positive
     jl   .ret_negative
     ret
-
-    ; add errno
-    ;It returns NULL if insufficient memory was available, with errno set to indicate the error.

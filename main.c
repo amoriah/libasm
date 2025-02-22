@@ -2,8 +2,6 @@
 
 // undestand makefile and commands
 // write conspect in ru and eng
-// check all and checkfile
-// what is size_t
 
 int main() {
 

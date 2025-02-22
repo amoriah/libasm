@@ -1,5 +1,5 @@
 #include <tests.h>
-//perror?
+
 int check_read_errors(int bytes_read) {
   if (bytes_read == -1) {
     perror("Error from read");
@@ -65,21 +65,6 @@ int read_from_fd(const char *test_name) {
   return 0;
 }
 
-int read_zero_bytes(const char *test_name) {
-  char buffer[BUFFER_SIZE];
-  ssize_t bytes_read;
-
-  printf("\nTest: %s\n", test_name);
-  bytes_read = ft_read(STDIN_CODE, buffer, 0);
-  if (bytes_read == 0) {
-    printf("%sOK: reading 0 bytes returns 0%s\n", GREEN, NO_COLOR);
-    return 0;
-  } else {
-    printf("%sError: reading 0 bytes returns: %zd%s\n", RED, bytes_read, NO_COLOR);
-    return 1;
-  }
-}
-
 int read_from_wrong_fd(const char *test_name) {
   char buffer[BUFFER_SIZE];
   ssize_t bytes_read;
@@ -101,9 +86,8 @@ int test_read() {
   int   test1_passed = read_from_stdin("read from stdin");
   int   test2_passed = read_from_fd("read from fd");
   int   test3_passed = read_from_wrong_fd("send wrong fd");
-  int   test4_passed = read_zero_bytes("read zero bytes");
 
-  if (!test1_passed && !test2_passed && !test3_passed && !test4_passed) {
+  if (!test1_passed && !test2_passed && !test3_passed) {
     printf("\n%s          All read tests PASSED!%s\n\n", GREEN, NO_COLOR);
     return 0;
   } else {

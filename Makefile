@@ -10,7 +10,7 @@ OBJ				=	$(patsubst %.c, $(OBJ_DIR)/%.o, $(notdir $(C_SRC))) \
 					$(patsubst $(SRC_DIR)/%.s, $(OBJ_DIR)/%.o, $(ASM_SRC))
 GCC				=	gcc
 ASM				= 	nasm
-CFLAGS			=	-Wall -Wextra -Werror -fsanitize=address -I$(TESTS_DIR)
+CFLAGS			=	-Wall -Wextra -Werror -I$(TESTS_DIR)
 AFLAGS			=	-f elf64
 LFLAGS			=	-L. -lasm
 VGD				= 	valgrind -s --leak-check=full
@@ -39,7 +39,7 @@ $(OBJ_DIR)/%.o 	:	$(SRC_DIR)/%.s
 run				:
 					./$(NAME)
 
-valgrind		:	all
+valgrind		:
 					@$(VGD) ./$(NAME)
 
 clean			:

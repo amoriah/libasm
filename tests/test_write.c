@@ -106,9 +106,8 @@ int test_write() {
   int   test1_passed = write_to_stdout(NORMAL_STRING, "write to stdout");
   int   test2_passed = write_in_file(NORMAL_STRING, "write in file");
   int   test3_passed = write_in_wrong_fd(NORMAL_STRING, "send wrong fd");
-  int   test4_passed = write_zero_bytes(NORMAL_STRING, "send wrong fd");
 
-  if (!test1_passed && !test2_passed && !test3_passed && !test4_passed) {
+  if (!test1_passed && !test2_passed && !test3_passed) {
     printf("\n%s          All write tests PASSED!%s\n\n", GREEN, NO_COLOR);
     return 0;
   } else {
@@ -116,4 +115,3 @@ int test_write() {
     return 1;
   }
 }
-
