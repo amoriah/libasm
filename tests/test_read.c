@@ -12,13 +12,13 @@ int read_from_stdin(const char *test_name) {
   ssize_t bytes_read;
   char    buffer[BUFFER_SIZE];
 
-  printf("\nTest: %s\nInput something: \n", test_name);
+  printf("\n* Test: %s\nInput something: \n", test_name);
 
   bytes_read = ft_read(STDIN_CODE, buffer, sizeof(buffer) - 1);
   if (check_read_errors(bytes_read)) return 1;
   buffer[bytes_read] = '\0';
 
-  printf("Your input: %s\n", buffer);
+  printf("* Your input: %s\n", buffer);
   return 0;
 }
 
@@ -29,7 +29,7 @@ int read_from_fd(const char *test_name) {
   ssize_t bytes_ft_read;
   ssize_t bytes_read;                                                                            ;
 
-  printf("\nTest: %s\n", test_name);
+  printf("\n* Test: %s\n", test_name);
   fd_write = open("test_write.txt", O_RDONLY);
   fd_ft_write = open("test_ft_write.txt", O_RDONLY);
 
@@ -38,7 +38,7 @@ int read_from_fd(const char *test_name) {
   bytes_ft_read = ft_read(fd_ft_write, buffer, sizeof(buffer) - 1);
   if (bytes_ft_read >= 0) {
     buffer[bytes_ft_read] = '\0';
-    printf("Read from file by ft_read -> %s\n", buffer);
+    printf("* Read from file 'test_ft_write.txt' by ft_read -> %s\n", buffer);
   } else {
     perror("Error ft_read from file");
     return 1;
@@ -47,7 +47,7 @@ int read_from_fd(const char *test_name) {
   bytes_read = read(fd_write, buffer, sizeof(buffer) - 1);
   if (bytes_read >= 0) {
     buffer[bytes_read] = '\0';
-    printf("Read from file by read -> %s\n", buffer);
+    printf("* Read from file 'test_write.txt' by read -> %s\n", buffer);
   } else {
     perror("Error read from file");
     return 1;
@@ -69,7 +69,7 @@ int read_from_wrong_fd(const char *test_name) {
   char buffer[BUFFER_SIZE];
   ssize_t bytes_read;
 
-  printf("\nTest: %s\n", test_name);
+  printf("\n* Test: %s\n", test_name);
   bytes_read = ft_read(WRONG_FD, buffer, sizeof(buffer) - 1);
   if (bytes_read > 0) {
     printf("%sError: success reading from wrong fd %zd%s\n", RED, bytes_read, NO_COLOR);
@@ -81,7 +81,7 @@ int read_from_wrong_fd(const char *test_name) {
 
 int test_read() {
 
-  printf("\n%s          [ TEST FT_READ ]          %s\n", BLUE, NO_COLOR);
+  printf("\n%s          [ VI. TEST FT_READ ]          %s\n", BLUE, NO_COLOR);
 
   int   test1_passed = read_from_stdin("read from stdin");
   int   test2_passed = read_from_fd("read from fd");

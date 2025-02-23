@@ -4,10 +4,10 @@ int ft_strlen_call(const char *test_str, const char *test_name) {
   int sis_len = strlen(test_str);
   int my_len = ft_strlen(test_str);
 
-  printf("\nTest: %s\n", test_name);
-  printf("Input string: %s\n", test_str);
-  printf("Result from strlen: %i\n", sis_len);
-  printf("Result from ft_strlen: %i\n", my_len);
+  printf("\n* Test: %s\n", test_name);
+  printf("* Input string: %s\n", test_str);
+  printf("* Result from strlen: %i\n", sis_len);
+  printf("* Result from ft_strlen: %i\n", my_len);
 
   if (my_len != sis_len) {
     printf("%sERROR: Lengths DO NOT match!%s\n", RED, NO_COLOR);
@@ -18,7 +18,7 @@ int ft_strlen_call(const char *test_str, const char *test_name) {
 }
 
 int test_strlen() {
-  printf("\n%s          [ TEST FT_STRLEN ]          %s\n", BLUE, NO_COLOR);
+  printf("\n%s          [ I. TEST FT_STRLEN ]          %s\n", BLUE, NO_COLOR);
 
   int test1_passed = ft_strlen_call(NORMAL_STRING, "normal string");
   int test2_passed = ft_strlen_call(EMPTY_STRING, "empty string");

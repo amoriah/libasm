@@ -1,8 +1,5 @@
 #include <tests.h>
 
-// undestand makefile and commands
-// write conspect in ru and eng
-
 int main() {
 
   int strlen_result = test_strlen();
@@ -19,12 +16,15 @@ int main() {
                       || write_result \
                       || read_result;
 
-  if (tests_result == 1) {
-    printf("\n%s         * Something wrong happened :( *         %s\n", RED, NO_COLOR);
+  if (tests_result) {
+    printf("\n%s***********************************%s\n", RED, NO_COLOR);
+    printf("\n%s*** Something wrong happened :( ***%s\n", RED, NO_COLOR);
+    printf("\n%s***********************************%s\n", RED, NO_COLOR);
     return tests_result;
   }
-
+  printf("%s**********************************%s\n", GREEN, NO_COLOR);
   printf("%s*** All libasm tests passed :) ***%s\n", GREEN, NO_COLOR);
+  printf("%s**********************************%s\n", GREEN, NO_COLOR);
 
   return read_result;
 }

@@ -26,7 +26,7 @@ loop:
     ret
 
 .finish:
-    sub  cl, bl
-    jg   .ret_positive
-    jl   .ret_negative
+    sub cl, bl
+    jg  .ret_positive
+    jl  .ret_negative
     ret

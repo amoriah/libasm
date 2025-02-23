@@ -4,10 +4,10 @@ int ft_strdup_call(const char *src, const char *test_name) {
   char  *my_result = ft_strdup(src);
   char  *standart_result = strdup(src);
 
-  printf("\nTest: %s\n", test_name);
-  printf("Source string: %s\n", src);
-  printf("Result from strdup: %s\n", standart_result);
-  printf("Result from ft_strdup: %s\n", my_result);
+  printf("\n* Test: %s\n", test_name);
+  printf("* Source string: %s\n", src);
+  printf("* Result from strdup: %s\n", standart_result);
+  printf("* Result from ft_strdup: %s\n", my_result);
 
   if (strlen(standart_result) != strlen(my_result)) {
     printf("%sERROR: Strings DO NOT match!%s\n", RED, NO_COLOR);
@@ -23,7 +23,7 @@ int ft_strdup_call(const char *src, const char *test_name) {
 }
 
 int test_strdup() {
-  printf("\n%s          [ TEST FT_STRDUP ]          %s\n", BLUE, NO_COLOR);
+  printf("\n%s          [ IV. TEST FT_STRDUP ]          %s\n", BLUE, NO_COLOR);
 
   int test1_passed = ft_strdup_call(NORMAL_STRING, "normal string");
   int test2_passed = ft_strdup_call(EMPTY_STRING, "empty string");

@@ -20,9 +20,8 @@ ft_strdup:
     ret 
 
 .error:
-    neg rax
-    mov rdi, rax
-    call __errno_location wrt ..plt
-    mov [rax], edi
-    mov rax, -1
+    neg     rax
+    mov     rdi, rax
+    call    __errno_location wrt ..plt
+    mov     [rax], edi
     ret 

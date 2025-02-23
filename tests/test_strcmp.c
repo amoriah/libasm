@@ -4,22 +4,27 @@ int ft_strcmp_call(const char *s1, const char *s2, const char *test_name) {
   int standart_result = strcmp(s1, s2);
   int my_result = ft_strcmp(s1, s2);
 
-  printf("\nTest: %s\n", test_name);
-  printf("First string: %s\n", s1);
-  printf("Second string: %s\n", s2);
-  printf("Result from strcmp: %i\n", standart_result);
-  printf("Result from ft_strcmp: %i\n", my_result);
+  printf("\n* Test: %s\n", test_name);
+  printf("* First string: %s\n", s1);
+  printf("* Second string: %s\n", s2);
+  printf("* Result from strcmp: %i\n", standart_result);
+  printf("* Result from ft_strcmp: %i\n", my_result);
 
-  if (standart_result != my_result) {
-    printf("%sERROR: results DO NOT match!%s\n", RED, NO_COLOR);
-    return 1;
+  int isPositive = standart_result > 0 && my_result > 0;
+  int isNegative = standart_result < 0 && my_result < 0;
+  int isZero = standart_result == 0 && my_result == 0;
+
+
+  if (isPositive || isNegative || isZero) {
+    printf("%sOK: results have the same sign !%s\n", GREEN, NO_COLOR);
+    return 0;
   }
-  printf("%sOK: results match!%s\n", GREEN, NO_COLOR);
-  return 0;
+  printf("%sERROR: results have the different sign!%s\n", RED, NO_COLOR);
+  return 1;
 }
 
 int test_strcmp() {
-  printf("\n%s          [ TEST FT_STRCMP ]          %s\n", BLUE, NO_COLOR);
+  printf("\n%s          [ III. TEST FT_STRCMP ]          %s\n", BLUE, NO_COLOR);
 
   int test1_passed = ft_strcmp_call(EMPTY_STRING, NORMAL_STRING, "first empty string");
   int test2_passed = ft_strcmp_call(NORMAL_STRING, EMPTY_STRING, "second empty string");
